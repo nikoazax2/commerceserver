@@ -23,12 +23,10 @@ export class UserService {
    */
   createUser(createUserDto: CreateUserDto): Promise<User> {
     const user: User = new User();
-    user.name = createUserDto.name;
-    user.age = createUserDto.age;
-    user.email = createUserDto.email;
-    user.username = createUserDto.username;
-    user.password = createUserDto.password;
-    user.gender = createUserDto.gender;
+    user.name = createUserDto.name; 
+    user.adress = createUserDto.adress; 
+    user.email = createUserDto.email; 
+    user.password = createUserDto.password; 
     return this.userRepository.save(user);
   }
 
@@ -60,9 +58,8 @@ export class UserService {
     const user: User = new User();
     user.uuid = uuid;
     user.name = updateUserDto.name;
-    user.age = updateUserDto.age;
-    user.email = updateUserDto.email;
-    user.username = updateUserDto.username;
+    user.adress = updateUserDto.adress;
+    user.email = updateUserDto.email; 
     user.password = updateUserDto.password;
     return this.userRepository.save(user);
   }

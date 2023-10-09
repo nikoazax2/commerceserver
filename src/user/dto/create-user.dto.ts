@@ -19,23 +19,16 @@ import {
     name: string;
   
     @IsNotEmpty()
-    @MinLength(3, { message: 'Username must have atleast 3 characters.' })
+    @MinLength(40, { message: 'Adress must have atleast 3 characters.' })
     @IsAlphanumeric(null, {
       message: 'Username does not allow other than alpha numeric chars.',
     })
-    username: string;
+    adress: string;
   
     @IsNotEmpty()
     @IsEmail(null, { message: 'Please provide valid Email.' })
     email: string;
-  
-    @IsInt()
-    age: number;
-  
-    @IsString()
-    @IsEnum(['f', 'm', 'u'])
-    gender: string;
-  
+   
     @IsNotEmpty()
     @Matches(passwordRegEx, {
       message: `Password must contain Minimum 8 and maximum 20 characters, 
