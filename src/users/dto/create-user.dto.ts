@@ -17,6 +17,10 @@ import {
     @MinLength(2, { message: 'Name must have atleast 2 characters.' })
     @IsNotEmpty()
     name: string;
+
+    @IsString()
+    @MinLength(2, { message: 'Name must have atleast 2 characters.' }) 
+    username: string;
   
     @IsNotEmpty()
     @MinLength(40, { message: 'Adress must have atleast 3 characters.' })

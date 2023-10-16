@@ -7,7 +7,7 @@ import {
     Param,
     Delete,
   } from '@nestjs/common';
-  import { UserService } from './user.service';
+  import { UsersService } from './users.service';
   import { CreateUserDto } from './dto/create-user.dto';
   import { UpdateUserDto } from './dto/update-user.dto';
   
@@ -19,7 +19,7 @@ import {
    */
   @Controller('user')
   export class UserController {
-    constructor(private readonly userService: UserService) {}
+    constructor(private readonly UsersService: UsersService) {}
   
     /**
      * Post decorator represents method of request as we have used post decorator the method
@@ -29,7 +29,7 @@ import {
      */
     @Post()
     create(@Body() createUserDto: CreateUserDto) {
-      return this.userService.createUser(createUserDto);
+      return this.UsersService.createUser(createUserDto);
     }
   
     /**
@@ -39,7 +39,7 @@ import {
      */
     @Get()
     findAll() {
-      return this.userService.findAllUser();
+      return this.UsersService.findAllUser();
     }
   
     /**
@@ -49,7 +49,7 @@ import {
      */
     @Get(':uuid')
     findOne(@Param('uuid') uuid: string) {
-      return this.userService.viewUser(uuid);
+      return this.UsersService.viewUser(uuid);
     }
   
     /**
@@ -59,7 +59,7 @@ import {
      */
     @Patch(':uuid')
     update(@Param('uuid') uuid: string, @Body() updateUserDto: UpdateUserDto) {
-      return this.userService.updateUser(uuid, updateUserDto);
+      return this.UsersService.updateUser(uuid, updateUserDto);
     }
   
     /**
@@ -69,6 +69,6 @@ import {
      */
     @Delete(':uuid')
     remove(@Param('uuid') uuid: string) {
-      return this.userService.removeUser(uuid);
+      return this.UsersService.removeUser(uuid);
     }
   }

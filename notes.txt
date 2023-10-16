@@ -1,0 +1,2 @@
+j'en suis à l'implementation de auth :
+https://docs.nestjs.com/security/authentication#jwt-token

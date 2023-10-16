@@ -11,6 +11,10 @@ export class User {
     @Column({ type: 'varchar', length: 30 })
     name: string;
 
+    @Column({ type: 'varchar', length: 30 })
+    username: string;
+
+
     @Column({ type: 'varchar', length: 40 })
     adress: string; 
 

@@ -1,0 +1,15 @@
+{
+    "type": "node",
+    "request": "launch",
+    "name": "NestJS Debug",
+    "program": "${workspaceFolder}/node_modules/.bin/nest",
+    "args": ["start"],
+    "runtimeArgs": ["--inspect-brk"],
+    "cwd": "${workspaceFolder}",
+    "protocol": "inspector",
+    "restart": true,
+    "port": 9229,
+    "console": "integratedTerminal",
+    "internalConsoleOptions": "neverOpen"
+  }
+  
