@@ -1,6 +1,7 @@
 import { 
     IsInt,
     IsNotEmpty,
+    IsNumber,
     IsString, 
     MinLength,
 } from 'class-validator';
@@ -14,7 +15,10 @@ export class CreateProductDto {
     @IsNotEmpty()
     name: string;
 
-    @IsInt()
+    @IsNumber()
     prix: number;
+
+    @IsNotEmpty()
+    image: string;
 
 }

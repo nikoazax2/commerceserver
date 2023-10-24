@@ -25,6 +25,7 @@ export class ProductService {
         const product: Product = new Product();
         product.name = createProductDto.name;
         product.prix = createProductDto.prix;
+        product.image = createProductDto.image;
         return this.productRepository.save(product);
     }
 
@@ -57,6 +58,7 @@ export class ProductService {
         product.uuid = uuid;
         product.name = updateProductDto.name;
         product.prix = updateProductDto.prix;
+        product.image = updateProductDto.image;
         return this.productRepository.save(product);
     }
 

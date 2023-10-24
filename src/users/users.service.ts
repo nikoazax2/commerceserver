@@ -28,8 +28,7 @@ export class UsersService {
      * @returns promise of user
      */
     createUser(createUserDto: CreateUserDto): Promise<User> {
-        const user: User = new User();
-        user.name = createUserDto.name;
+        const user: User = new User(); 
         user.username = createUserDto.username;
         user.adress = createUserDto.adress;
         user.email = createUserDto.email;
@@ -64,8 +63,7 @@ export class UsersService {
      */
     updateUser(uuid: string, updateUserDto: UpdateUserDto): Promise<User> {
         const user: User = new User();
-        user.uuid = uuid;
-        user.name = updateUserDto.name;
+        user.uuid = uuid; 
         user.username = updateUserDto.username;
         user.adress = updateUserDto.adress;
         user.email = updateUserDto.email;

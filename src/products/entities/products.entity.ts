@@ -10,11 +10,13 @@ export class Product {
 
 
 
-    @Column({ type: 'int' })
-    prix: number;
-
+    @Column({ type: 'float' })
+    prix: number; 
 
     @Column({ type: 'varchar', length: 30 })
     name: string;
+
+    @Column({ type: 'text', nullable: true }) // Store image as a text (base64)
+    image: string | null;
 
 } 

@@ -7,9 +7,7 @@ export class User {
      */
     @PrimaryGeneratedColumn("uuid")
     uuid: string;
-
-    @Column({ type: 'varchar', length: 30 })
-    name: string;
+ 
 
     @Column({ type: 'varchar', length: 30 })
     username: string;
