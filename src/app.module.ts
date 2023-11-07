@@ -6,6 +6,11 @@ import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { Product } from './products/entities/products.entity';
 import { ProductModule } from './products/products.module';
+import { Categorie } from './categories/entities/categories.entity';
+import { CategorieModule } from './categories/categories.module';
+import { Cart } from './cart/entities/cart.entity';
+import { CartModule } from './cart/cart.module';
+import { UsersService } from './users/users.service';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
@@ -16,13 +21,15 @@ import { AuthModule } from './auth/auth.module';
             port: 5432,
             password: 'postgres',
             username: 'postgres',
-            entities: [User, Product],
+            entities: [User, Product, Categorie, Cart],
             database: 'postgres',
             synchronize: true,
             logging: true,
         }),
         UsersModule,
         ProductModule,
+        CartModule,
+        CategorieModule,
         AuthModule,
     ],
     controllers: [AppController],

@@ -4,16 +4,21 @@ import { Repository } from 'typeorm';
 import { CreateProductDto } from './dto/create-products.dto';
 import { UpdateProductDto } from './dto/update-products.dto';
 import { Product } from './entities/products.entity';
-
+import { Categorie } from './entities/products.entity';
 @Injectable()
 export class ProductService {
     /**
      * Here, we have used data mapper approch for this tutorial that is why we
      * injecting repository here. Another approch can be Active records.
      */
-    constructor(
+    constructor( 
         @InjectRepository(Product) private readonly productRepository: Repository<Product>,
     ) { }
+
+
+    async findOneUUID(uuid: string): Promise<Product | undefined> {
+        return this.productRepository.findOne({ where: { uuid: uuid } });
+    }
 
     /**
      * this is function is used to create Product in Product Entity.
@@ -25,6 +30,7 @@ export class ProductService {
         const product: Product = new Product();
         product.name = createProductDto.name;
         product.prix = createProductDto.prix;
+        product.description = createProductDto.description;
         product.image = createProductDto.image;
         return this.productRepository.save(product);
     }
@@ -34,7 +40,9 @@ export class ProductService {
      * @returns promise of array of products
      */
     findAllProduct(): Promise<Product[]> {
-        return this.productRepository.find();
+        return this.productRepository.createQueryBuilder('product')
+            .leftJoinAndSelect('product.categorie', 'categorie')
+            .getMany();
     }
 
     /**
@@ -58,6 +66,7 @@ export class ProductService {
         product.uuid = uuid;
         product.name = updateProductDto.name;
         product.prix = updateProductDto.prix;
+        product.description = updateProductDto.description;
         product.image = updateProductDto.image;
         return this.productRepository.save(product);
     }

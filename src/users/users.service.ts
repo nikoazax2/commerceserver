@@ -7,19 +7,23 @@ import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
+
     /**
      * Here, we have used data mapper approch for this tutorial that is why we
      * injecting repository here. Another approch can be Active records.
      */
-    constructor(
-        @InjectRepository(User) private users: Repository<User>,
+    constructor( 
         @InjectRepository(User) private readonly userRepository: Repository<User>,
     ) { }
 
 
     async findOne(username: string): Promise<User | undefined> {
-        return this.users.findOne({ where: { username: username } });
-    } 
+        return this.userRepository.findOne({ where: { username: username } });
+    }
+   
+    async findOneUUID(uuid: string): Promise<User | undefined> {
+        return this.userRepository.findOne({ where: { uuid: uuid } });
+    }
 
     /**
      * this is function is used to create User in User Entity.
@@ -28,9 +32,10 @@ export class UsersService {
      * @returns promise of user
      */
     createUser(createUserDto: CreateUserDto): Promise<User> {
-        const user: User = new User(); 
+        const user: User = new User();
         user.username = createUserDto.username;
         user.adress = createUserDto.adress;
+        user.role = 2;
         user.email = createUserDto.email;
         user.password = createUserDto.password;
         return this.userRepository.save(user);
@@ -63,9 +68,10 @@ export class UsersService {
      */
     updateUser(uuid: string, updateUserDto: UpdateUserDto): Promise<User> {
         const user: User = new User();
-        user.uuid = uuid; 
+        user.uuid = uuid;
         user.username = updateUserDto.username;
         user.adress = updateUserDto.adress;
+        user.role = updateUserDto.role;
         user.email = updateUserDto.email;
         user.password = updateUserDto.password;
         return this.userRepository.save(user);
