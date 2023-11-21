@@ -11,7 +11,7 @@ export class ProductService {
      * Here, we have used data mapper approch for this tutorial that is why we
      * injecting repository here. Another approch can be Active records.
      */
-    constructor( 
+    constructor(
         @InjectRepository(Product) private readonly productRepository: Repository<Product>,
     ) { }
 
@@ -32,6 +32,7 @@ export class ProductService {
         product.prix = createProductDto.prix;
         product.description = createProductDto.description;
         product.image = createProductDto.image;
+        product.categorieuuid = createProductDto.categorieuuid;
         return this.productRepository.save(product);
     }
 
@@ -39,12 +40,24 @@ export class ProductService {
      * this function is used to get all the product's list
      * @returns promise of array of products
      */
-    findAllProduct(): Promise<Product[]> {
-        return this.productRepository.createQueryBuilder('product')
-            .leftJoinAndSelect('product.categorie', 'categorie')
-            .getMany();
+    async findAllProduct(): Promise<Product[]> {
+        const entityManager = this.productRepository.manager;
+        const result = await entityManager.query(`
+        SELECT p.uuid, p.prix, p.name, p.description, p.image, 
+        json_build_object('uuid', c.uuid, 'name', c.name) as categorie, 
+        (
+            SELECT json_agg(v)
+            FROM (
+                SELECT * FROM variation
+                WHERE productuuid = p.uuid
+                ORDER BY "order"
+            ) v
+        ) as variations
+        FROM product p
+        JOIN categorie c ON p.categorieuuid = c.uuid  
+        `);
+        return result;
     }
-
     /**
      * this function used to get data of use whose id is passed in parameter
      * @param id is type of number, which represent the id of product.
@@ -68,6 +81,7 @@ export class ProductService {
         product.prix = updateProductDto.prix;
         product.description = updateProductDto.description;
         product.image = updateProductDto.image;
+        product.categorieuuid = updateProductDto.categorieuuid;
         return this.productRepository.save(product);
     }
 

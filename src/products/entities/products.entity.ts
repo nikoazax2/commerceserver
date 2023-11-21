@@ -3,12 +3,9 @@ import { Categorie } from '../../categories/entities/categories.entity';
 
 @Entity()
 export class Product {
-    @ManyToOne(() => Categorie)
-    @JoinColumn()
-    categorie: Categorie;
-    /**
-     * this decorator will help to auto generate id for the table.
-     */
+    @Column({ type: 'uuid' })
+    categorieuuid: string;
+
     @PrimaryGeneratedColumn("uuid")
     uuid: string;
 

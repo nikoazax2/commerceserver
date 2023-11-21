@@ -1,9 +1,9 @@
-import { 
+import {
     IsInt,
     IsNotEmpty,
     IsNumber,
     IsOptional,
-    IsString, 
+    IsString,
     MinLength,
 } from 'class-validator';
 
@@ -17,8 +17,9 @@ export class CreateProductDto {
     name: string;
 
     @IsString()
-    @MinLength(2, { message: 'Name must have atleast 2 characters.' }) 
-    categorie: string;
+    @MinLength(2, { message: 'Name must have atleast 2 characters.' })
+    categorieuuid: string;
+
 
     @IsNumber()
     prix: number;

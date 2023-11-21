@@ -12,6 +12,8 @@ import { Cart } from './cart/entities/cart.entity';
 import { CartModule } from './cart/cart.module';
 import { UsersService } from './users/users.service';
 import { AuthModule } from './auth/auth.module';
+import { Variation } from './variation/entities/variations.entity';
+import { VariationModule } from './variation/variations.module';
 
 @Module({
     imports: [
@@ -21,13 +23,14 @@ import { AuthModule } from './auth/auth.module';
             port: 5432,
             password: 'postgres',
             username: 'postgres',
-            entities: [User, Product, Categorie, Cart],
+            entities: [User, Product, Categorie, Cart, Variation],
             database: 'postgres',
             synchronize: true,
             logging: true,
         }),
         UsersModule,
         ProductModule,
+        VariationModule,
         CartModule,
         CategorieModule,
         AuthModule,
