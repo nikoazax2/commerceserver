@@ -15,7 +15,7 @@ export class Product {
     @Column({ type: 'varchar', length: 30 })
     name: string;
 
-    @Column({ type: 'varchar', length: 1000 })
+    @Column({ type: 'varchar', length: 100000 })
     description: string;
 
     @Column({ type: 'text', nullable: true }) // Store image as a text (base64)
