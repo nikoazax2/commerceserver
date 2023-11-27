@@ -28,6 +28,6 @@ export class CreateProductDto {
     description: string;
 
     @IsNotEmpty()
-    image: string;
+    image: string[];
 
 }

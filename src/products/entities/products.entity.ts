@@ -18,8 +18,10 @@ export class Product {
     @Column({ type: 'varchar', length: 100000 })
     description: string;
 
-    @Column({ type: 'text', nullable: true }) // Store image as a text (base64)
-    image: string | null;
+    @Column({
+        type: 'text', array: true, nullable: true, default: []
+    })
+    image: string[];
 }
 
 export { Categorie };
