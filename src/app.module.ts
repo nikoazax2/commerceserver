@@ -14,6 +14,7 @@ import { UsersService } from './users/users.service';
 import { AuthModule } from './auth/auth.module';
 import { Variation } from './variation/entities/variations.entity';
 import { VariationModule } from './variation/variations.module';
+import { ContenuModule } from './contenu/contenu.module';
 
 @Module({
     imports: [
@@ -34,6 +35,7 @@ import { VariationModule } from './variation/variations.module';
         CartModule,
         CategorieModule,
         AuthModule,
+        ContenuModule,
     ],
     controllers: [AppController],
     providers: [AppService],
