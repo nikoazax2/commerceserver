@@ -18,8 +18,7 @@ export class CreateProductDto {
 
     @IsString()
     @MinLength(2, { message: 'Name must have atleast 2 characters.' })
-    categorieuuid: string;
-
+    categorieuuid: string; 
 
     @IsNumber()
     prix: number;
@@ -30,4 +29,9 @@ export class CreateProductDto {
     @IsNotEmpty()
     image: string[];
 
+    @IsOptional()
+    idapistripe: string; 
+
+    @IsOptional()
+    ancienprixpromo: number;
 }

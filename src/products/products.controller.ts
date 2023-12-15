@@ -34,8 +34,8 @@ export class ProductController {
 
     @Post('uploadImage')
     @UseInterceptors(FilesInterceptor('photos[]', 10, {
-        dest: './uploads', storage: diskStorage({
-            destination: './uploads',
+        dest: './uploadsProduct', storage: diskStorage({
+            destination: './uploadsProduct',
             filename: (req, file, cb) => {
                 const filename: string = file.originalname;
                 return cb(null, filename);
@@ -52,7 +52,7 @@ export class ProductController {
     @Delete('image/:uuid')
     deleteImage(@Param('uuid') uuid: string) {
         try {
-            fs.unlinkSync(`./uploads/${uuid}`);
+            fs.unlinkSync(`./uploadsProduct/${uuid}`);
             return 'File deleted successfully';
         } catch (error) {
             throw new HttpException('File not found', 404);
@@ -66,7 +66,7 @@ export class ProductController {
     @Get('image/:uuid')
     getImage(@Param('uuid') uuid: string) {
         try {
-            const file = fs.readFileSync(`./uploads/${uuid}`);
+            const file = fs.readFileSync(`./uploadsProduct/${uuid}`);
             const base64Image = file.toString();
             return base64Image;
         } catch (error) {

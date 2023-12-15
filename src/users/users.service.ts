@@ -12,15 +12,15 @@ export class UsersService {
      * Here, we have used data mapper approch for this tutorial that is why we
      * injecting repository here. Another approch can be Active records.
      */
-    constructor( 
+    constructor(
         @InjectRepository(User) private readonly userRepository: Repository<User>,
     ) { }
 
 
-    async findOne(username: string): Promise<User | undefined> {
-        return this.userRepository.findOne({ where: { username: username } });
+    async findOne(email: string): Promise<User | undefined> {
+        return this.userRepository.findOne({ where: { email: email } });
     }
-   
+
     async findOneUUID(uuid: string): Promise<User | undefined> {
         return this.userRepository.findOne({ where: { uuid: uuid } });
     }
@@ -72,8 +72,7 @@ export class UsersService {
         user.username = updateUserDto.username;
         user.adress = updateUserDto.adress;
         user.role = updateUserDto.role;
-        user.email = updateUserDto.email;
-        user.password = updateUserDto.password;
+        user.email = updateUserDto.email; 
         return this.userRepository.save(user);
     }
 

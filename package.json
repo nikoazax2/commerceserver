@@ -6,7 +6,6 @@
     "private": true,
     "license": "UNLICENSED",
     "scripts": {
-        "node:18": "nvm use 18",
         "start:dev": " nest start --watch",
         "": "------------------------------",
         "build": "nest build",

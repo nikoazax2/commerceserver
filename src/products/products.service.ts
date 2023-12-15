@@ -32,7 +32,9 @@ export class ProductService {
         product.prix = createProductDto.prix;
         product.description = createProductDto.description;
         product.image = createProductDto.image;
+        product.idapistripe = createProductDto.idapistripe;
         product.categorieuuid = createProductDto.categorieuuid;
+        product.ancienprixpromo = createProductDto.ancienprixpromo;
         return this.productRepository.save(product);
     }
 
@@ -43,7 +45,7 @@ export class ProductService {
     async findAllProduct(): Promise<Product[]> {
         const entityManager = this.productRepository.manager;
         const result = await entityManager.query(`
-        SELECT p.uuid, p.prix, p.name, p.description, p.image, 
+        SELECT p.uuid, p.prix, p.name, p.description, p.image, p.idapistripe, p.ancienprixpromo,
         json_build_object('uuid', c.uuid, 'name', c.name) as categorie, 
         (
             SELECT json_agg(v)
@@ -80,8 +82,10 @@ export class ProductService {
         product.name = updateProductDto.name;
         product.prix = updateProductDto.prix;
         product.description = updateProductDto.description;
+        product.idapistripe = updateProductDto.idapistripe;
         product.image = updateProductDto.image;
         product.categorieuuid = updateProductDto.categorieuuid;
+        product.ancienprixpromo = updateProductDto.ancienprixpromo;
         return this.productRepository.save(product);
     }
 
