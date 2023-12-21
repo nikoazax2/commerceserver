@@ -23,6 +23,11 @@ export class CreateContenuDto {
     @Optional()
     valeur: string;
 
+    @IsNumber()
+    @IsInt()
+    @Optional()
+    type: number;
+
     @IsString()
     @MinLength(2, { message: 'Name must have atleast 2 characters.' })
     contenu: string;

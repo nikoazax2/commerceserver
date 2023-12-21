@@ -31,6 +31,7 @@ export class ContenuService {
         contenu.valeur = createContenuDto.valeur;
         contenu.photo = createContenuDto.photo;
         contenu.image = createContenuDto.image;
+        contenu.type = createContenuDto.type;
         return this.contenuRepository.save(contenu);
     }
 
@@ -70,6 +71,7 @@ export class ContenuService {
         contenu.valeur = updateContenuDto.valeur;
         contenu.photo = updateContenuDto.photo;
         contenu.image = updateContenuDto.image;
+        contenu.type = updateContenuDto.type;
         return this.contenuRepository.save(contenu);
     }
 

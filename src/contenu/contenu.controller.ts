@@ -78,7 +78,6 @@ export class ContenuController {
 * Get image with uuid
 */
     @Get('image/:uuid')
-    @UseGuards(AuthGuard)
     getImage(@Param('uuid') uuid: string) {
         try {
             const file = fs.readFileSync(`./uploadSite/${uuid}`);
@@ -96,7 +95,6 @@ export class ContenuController {
      * GET http://localhost:3000/Contenu
      */
     @Get()
-    @UseGuards(AuthGuard)
     findAll() {
         return this.ContenuService.findAllContenu();
     }
@@ -107,7 +105,6 @@ export class ContenuController {
      * GET http://localhost:3000/Contenu/:id
      */
     @Get(':uuid')
-    @UseGuards(AuthGuard)
     findOne(@Param('uuid') uuid: string) {
         return this.ContenuService.viewContenu(uuid);
     }

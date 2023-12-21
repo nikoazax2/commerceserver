@@ -12,6 +12,9 @@ export class Contenu {
     @Column({ type: 'varchar', length: 30 , nullable: true })
     valeur: string;
 
+    @Column({ type: 'int', nullable: true })
+    type: number;
+
     @Column({ type: 'varchar', length: 500, nullable: true })
     description: string;
 
