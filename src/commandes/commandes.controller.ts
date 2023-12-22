@@ -9,8 +9,7 @@ import {
 } from '@nestjs/common';
 import { CommandeService } from './commandes.service';
 import { CreateCommandeDto } from './dto/create-commande.dto';
-import { UpdateCommandeDto } from './dto/update-commande.dto';
-import { StripeService } from 'nestjs-stripe';
+import { UpdateCommandeDto } from './dto/update-commande.dto'; 
 
 /**
  * whatever the string pass in controller decorator it will be appended to
@@ -20,30 +19,9 @@ import { StripeService } from 'nestjs-stripe';
  */
 @Controller('Commande')
 export class CommandeController {
-    constructor(private readonly CommandeService: CommandeService, private readonly stripeService: StripeService,) { }
+    constructor(private readonly CommandeService: CommandeService ) { }
 
-    @Post('/webhook')
-    async handleStripeWebhook(@Body() createCommandeDto: any) {
-        const webhookEvent = this.stripeService.constructEvent(
-            createCommandeDto.body,
-            createCommandeDto.headers['stripe-signature'],
-            process.env.STRIPE_WEBHOOK_SECRET,
-        );
-
-        // Gérez l'événement du webhook ici
-        switch (webhookEvent.type) {
-            case 'payment_intent.succeeded':
-                const paymentIntent = webhookEvent.data.object;
-                await this.CommandeService.handlePaymentSuccess(paymentIntent);
-                break;
-            default:
-                console.log(`Unhandled webhook event type: ${webhookEvent.type}`);
-                break;
-        }
-
-        return { received: true };
-    }
-
+    
 
 
 
