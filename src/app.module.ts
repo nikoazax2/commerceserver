@@ -16,6 +16,9 @@ import { Variation } from './variation/entities/variations.entity';
 import { VariationModule } from './variation/variations.module';
 import { Contenu } from './contenu/entities/contenu.entity';
 import { ContenuModule } from './contenu/contenu.module';
+import { Commande } from './commandes/entities/commandes.entity';
+import { CommandeModule } from './commandes/commandes.module';
+import { StripeModule } from '@golevelup/nestjs-stripe';
 
 @Module({
     imports: [
@@ -25,10 +28,19 @@ import { ContenuModule } from './contenu/contenu.module';
             port: 5432,
             password: 'postgres',
             username: 'postgres',
-            entities: [User, Product, Categorie, Cart, Variation, Contenu],
+            entities: [User, Product, Categorie, Cart, Variation, Contenu, Commande],
             database: 'postgres',
             synchronize: true,
             logging: true,
+        }),
+        StripeModule.forRoot(StripeModule, {
+            apiKey: 'pk_test_51NboKUBTmmLQabfnwQKPey7xyIrmAhFXWhRhcrhnrlylOrlvZdT4R5xsa4XDvRLNhFnOI9UadFgaLMoeaNQvcXex00SvCHyjK7',
+            webhookConfig: {
+                stripeSecrets: {
+                    account: 'abc',
+                    connect: 'cba',
+                },
+            },
         }),
         UsersModule,
         ProductModule,
@@ -37,6 +49,7 @@ import { ContenuModule } from './contenu/contenu.module';
         CategorieModule,
         AuthModule,
         ContenuModule,
+        CommandeModule
     ],
     controllers: [AppController],
     providers: [AppService],
