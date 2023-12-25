@@ -5,15 +5,10 @@ import { json, urlencoded } from 'express';
 import * as fs from 'fs';
 import * as https from 'https';
 
-async function bootstrap() {
-    const httpsOptions = {
-        key: fs.readFileSync('./keys/server.key'),
-        cert: fs.readFileSync('./keys/server.cert'),
-    };
-
-    const app = await NestFactory.create(AppModule, { httpsOptions });
+async function bootstrap() { 
+    const app = await NestFactory.create(AppModule );
     app.enableCors({
-        origin: 'https://89.116.228.185',
+        origin: ['http://localhost:8080','http://89.116.228.185'],
     })
     app.use(json({ limit: '50mb' }));
     app.use(urlencoded({ extended: true, limit: '50mb' }));
