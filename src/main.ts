@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { json, urlencoded } from 'express';
-const helmet = require('helmet');
 import * as fs from 'fs';
 import * as https from 'https';
 
@@ -10,11 +9,10 @@ async function bootstrap() {
     const httpsOptions = {
         key: fs.readFileSync('./certificates/key.pem'),
         cert: fs.readFileSync('./certificates/cert.pem'),
-    };
-    const app = await NestFactory.create(AppModule);
-    const server = https.createServer(httpsOptions, app.getHttpAdapter().getInstance());
-
-    app.use(helmet())
+    }
+    const app = await NestFactory.create(AppModule, {
+        httpsOptions,
+    })
     app.enableCors()
 
     app.enableCors({
