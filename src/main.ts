@@ -6,12 +6,11 @@ import * as fs from 'fs';
 import * as https from 'https';
 
 async function bootstrap() {
-    const httpsOptions = {
-        key: fs.readFileSync('./certificates/key.pem'),
-        cert: fs.readFileSync('./certificates/cert.pem'),
-    }
     const app = await NestFactory.create(AppModule, {
-        httpsOptions, cors: true
+        httpsOptions: {
+            key: fs.readFileSync('./key.pem'),
+            cert: fs.readFileSync('./cert.pem'),
+        }, cors: true
     })
     app.enableCors({
         origin: ['http://localhost:8080', 'http://89.116.228.185', 'https://89.116.228.185', 'https://sagenicolas.fr', 'http://89.116.228.185/commerceclient/'],
