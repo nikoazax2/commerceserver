@@ -12,9 +12,7 @@ async function bootstrap() {
     }
     const app = await NestFactory.create(AppModule, {
         httpsOptions,
-    })
-    app.enableCors()
-
+    }) 
     app.enableCors({
         origin: ['http://localhost:8080', 'http://89.116.228.185', 'https://89.116.228.185', 'https://sagenicolas.fr', 'http://89.116.228.185/commerceclient/'],
     })
