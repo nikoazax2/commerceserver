@@ -8,8 +8,8 @@ import * as https from 'https';
 async function bootstrap() {
     let ssl =  {
        httpsOptions: {
-           key: fs.readFileSync('./certificates/server.key'),
-           cert: fs.readFileSync('./certificates/server.cert'),
+           key: fs.readFileSync('./certificates/privatekey.pem'),
+           cert: fs.readFileSync('./certificates/cert.pem'),
        }
     } 
     const app = await NestFactory.create(AppModule, ssl)
