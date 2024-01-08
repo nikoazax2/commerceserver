@@ -8,8 +8,8 @@ import * as https from 'https';
 async function bootstrap() {
     const app = await NestFactory.create(AppModule, {
         httpsOptions: {
-            key: fs.readFileSync('./certificates/www.sagenicolas.fr.key'),
-            cert: fs.readFileSync('./certificates/www.sagenicolas.fr.csr'),
+            key: fs.readFileSync('./certificates/server.key'),
+            cert: fs.readFileSync('./certificates/server.cert'),
         }, cors: true
     })
     app.enableCors({
