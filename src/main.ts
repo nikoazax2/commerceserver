@@ -10,7 +10,7 @@ async function bootstrap() {
         httpsOptions: {
             key: fs.readFileSync('./certificates/server.key'),
             cert: fs.readFileSync('./certificates/server.cert'),
-        }, cors: true
+        }
     })
     app.enableCors({
         origin: ['http://localhost:8080', 'http://89.116.228.185', 'https://89.116.228.185', 'https://sagenicolas.fr', 'http://89.116.228.185/commerceclient/'],
