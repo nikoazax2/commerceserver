@@ -14,7 +14,7 @@ async function bootstrap() {
     }
     const app = await NestFactory.create(AppModule, ssl)
     app.enableCors({
-        origin: ['http://localhost:8080', 'http://89.116.228.185', 'https://89.116.228.185', 'https://sagenicolas.fr', 'http://89.116.228.185/commerceclient/'],
+        origin: ['http://localhost:8080', 'http://localhost:8080/', 'https://localhost:8080/', 'http://89.116.228.185', 'https://89.116.228.185', 'https://sagenicolas.fr', 'http://89.116.228.185/commerceclient/'],
     })
     app.use(json({ limit: '50mb' }));
     app.use(urlencoded({ extended: true, limit: '50mb' }));
