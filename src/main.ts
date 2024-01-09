@@ -5,16 +5,11 @@ import { json, urlencoded } from 'express';
 import * as fs from 'fs';
 import * as https from 'https';
 
-
-
-
-
-
 async function bootstrap() {
     let ssl = {
         httpsOptions: {
-            key: fs.readFileSync('./certificates/privatekey.pem'),
-            cert: fs.readFileSync('./certificates/cert.pem'),
+            key: fs.readFileSync('./secrets/cert.key'),
+            cert: fs.readFileSync('./secrets/cert.crt'),
         }
     }
     const app = await NestFactory.create(AppModule, ssl)
