@@ -6,7 +6,7 @@ import * as fs from 'fs';
 import * as https from 'https';
 
 async function bootstrap() {
-    let ssl = {
+    let ssl =  {
         httpsOptions: {
             key: fs.readFileSync('./secrets/privkey.pem'),
             cert: fs.readFileSync('./secrets/fullchain.pem'),
