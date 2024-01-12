@@ -8,10 +8,11 @@ import * as https from 'https';
 async function bootstrap() {
     let ssl = {
         httpsOptions: {
-            key: fs.readFileSync('./secrets/privkey.pem'),
-            cert: fs.readFileSync('./secrets/fullchain.pem')
+            key: fs.readFileSync('src/secrets/privkey.pem'),
+            cert: fs.readFileSync('src/secrets/fullchain.pem')
         }
     }
+
     const app = await NestFactory.create(AppModule, ssl)
     app.enableCors({
         origin: ['http://localhost:8080', 'http://localhost:3000/categorie', 'http://localhost:8080/', 'https://localhost:8080/', 'http://89.116.228.185', 'https://89.116.228.185', 'https://sagenicolas.fr', 'http://sagenicolas.fr', 'https://sagenicolas.fr/commerceclient/', 'http://89.116.228.185/commerceclient/'],
