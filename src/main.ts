@@ -8,8 +8,8 @@ import * as https from 'https';
 async function bootstrap() {
     let ssl = {
         httpsOptions: {
-            key: fs.readFileSync('src/secrets/privkey.pem'),
-            cert: fs.readFileSync('src/secrets/fullchain.pem')
+            key: fs.readFileSync('./secrets/privkey.pem'),
+            cert: fs.readFileSync('./secrets/cert.pem')
         }
     }
 
