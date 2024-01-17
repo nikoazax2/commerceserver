@@ -9,11 +9,11 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule)
     app.use(json({ limit: '50mb' }));
     app.use(urlencoded({ extended: true, limit: '50mb' }));
-    app.enableCors({
-        allowedHeaders: ['content-type'],
-        origin: 'http://89.116.228.185',
-        credentials: true,
-      })
+    // app.enableCors({
+    //     allowedHeaders: ['content-type'],
+    //     origin: ['http://ecommerce.sagenicolas.fr'],
+    //     credentials: true,
+    //   })
     const config = new DocumentBuilder()
         .setTitle('Ecommerce example')
         .setDescription('The ecommerce API control')
