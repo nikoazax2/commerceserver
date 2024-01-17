@@ -1,2 +1,10 @@
 j'en suis à l'implementation de auth :
 https://docs.nestjs.com/security/authentication#jwt-token
+
+
+
+
+sudo systemctl restart nginx
+certbot -> 1 2 
+rediriger ? oui 
+redémarer
