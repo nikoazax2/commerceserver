@@ -10,8 +10,10 @@ async function bootstrap() {
     app.use(json({ limit: '50mb' }));
     app.use(urlencoded({ extended: true, limit: '50mb' }));
     app.enableCors({
-        origin: ['http://ecommerce.sagenicolas.fr', 'http://89.116.228.185'],
-    })
+        allowedHeaders: '*',
+        origin: '*',
+        credentials: true,
+      })
     const config = new DocumentBuilder()
         .setTitle('Ecommerce example')
         .setDescription('The ecommerce API control')
