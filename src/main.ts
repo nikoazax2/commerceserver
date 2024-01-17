@@ -11,7 +11,7 @@ async function bootstrap() {
     app.use(urlencoded({ extended: true, limit: '50mb' }));
     app.enableCors({
         allowedHeaders: ['content-type'],
-        origin: 'http://ecommerce.sagenicolas.fr',
+        origin: 'http://89.116.228.185',
         credentials: true,
       })
     const config = new DocumentBuilder()
