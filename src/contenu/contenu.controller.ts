@@ -39,6 +39,7 @@ export class ContenuController {
      * so the API URL to create Contenu will be
      * POST http://localhost:3000/Contenu
      */
+    @UseGuards(AuthGuard)
     @Post() 
     create(@Body() createContenuDto: CreateContenuDto) {
         return this.ContenuService.createContenu(createContenuDto);
