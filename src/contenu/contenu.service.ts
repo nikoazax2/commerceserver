@@ -32,6 +32,7 @@ export class ContenuService {
         contenu.photo = createContenuDto.photo;
         contenu.image = createContenuDto.image;
         contenu.type = createContenuDto.type;
+        contenu.removable = createContenuDto.removable;
         return this.contenuRepository.save(contenu);
     }
 
@@ -72,6 +73,7 @@ export class ContenuService {
         contenu.photo = updateContenuDto.photo;
         contenu.image = updateContenuDto.image;
         contenu.type = updateContenuDto.type;
+        contenu.removable = updateContenuDto.removable;
         return this.contenuRepository.save(contenu);
     }
 

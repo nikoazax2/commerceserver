@@ -47,6 +47,9 @@ export class CreateContenuDto {
     @Optional()
     photo: boolean;
 
+    @IsNotEmpty()
+    removable: boolean;
+
     @IsString()
     @MinLength(2, { message: 'Name must have atleast 2 characters.' })
     @Optional()

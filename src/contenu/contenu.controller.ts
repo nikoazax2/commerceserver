@@ -39,14 +39,12 @@ export class ContenuController {
      * so the API URL to create Contenu will be
      * POST http://localhost:3000/Contenu
      */
-    @Post()
-    @UseGuards(AuthGuard)
+    @Post() 
     create(@Body() createContenuDto: CreateContenuDto) {
         return this.ContenuService.createContenu(createContenuDto);
     }
 
-    @Post('uploadImage')
-    @UseGuards(AuthGuard)
+    @Post('uploadImage') 
     @UseInterceptors(FilesInterceptor('photos[]', 10, {
         dest: './uploadSite', storage: diskStorage({
             destination: './uploadSite',

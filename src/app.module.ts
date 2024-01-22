@@ -18,6 +18,8 @@ import { Contenu } from './contenu/entities/contenu.entity';
 import { ContenuModule } from './contenu/contenu.module';
 import { Commande } from './commandes/entities/commandes.entity';
 import { CommandeModule } from './commandes/commandes.module'; 
+import { BlocModule } from './blocs/bloc.module';
+import { Bloc } from './blocs/entities/blocs.entity'
 
 @Module({
     imports: [
@@ -27,7 +29,7 @@ import { CommandeModule } from './commandes/commandes.module';
             port: 5432,
             password: 'postgres',
             username: 'postgres',
-            entities: [User, Product, Categorie, Cart, Variation, Contenu, Commande],
+            entities: [User, Product, Categorie, Cart, Variation, Contenu, Commande , Bloc],
             database: 'postgres',
             synchronize: true,
             logging: true,
@@ -39,7 +41,8 @@ import { CommandeModule } from './commandes/commandes.module';
         CategorieModule,
         AuthModule,
         ContenuModule,
-        CommandeModule
+        CommandeModule,
+        BlocModule
     ],
     controllers: [AppController],
     providers: [AppService],

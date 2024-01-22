@@ -30,6 +30,9 @@ export class Contenu {
     @Column({ type: 'boolean', nullable: true })
     photo: boolean;
 
+    @Column({ type: 'boolean', nullable: true })
+    removable: boolean;
+
     @Column({
         type: 'text', array: true, nullable: true, default: []
     })
