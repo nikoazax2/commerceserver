@@ -20,6 +20,11 @@ export class User {
     @Column({ type: 'varchar', length: 40 })
     email: string;
 
+    @Column({ type: 'varchar', length: 6, nullable: true })
+    code: string;
+
+    @Column({ type: 'boolean', default: false })
+    activated: boolean;
 
     @Column({ type: 'varchar' })
     password: string;

@@ -38,6 +38,7 @@ export class UsersService {
         user.role = 2;
         user.email = createUserDto.email;
         user.password = createUserDto.password;
+        user.code = createUserDto.code;
         return this.userRepository.save(user);
     }
 
@@ -67,12 +68,13 @@ export class UsersService {
      * @returns promise of udpate user
      */
     updateUser(uuid: string, updateUserDto: UpdateUserDto): Promise<User> {
-        const user: User = new User();
+        const user: User = new User(); 
         user.uuid = uuid;
         user.username = updateUserDto.username;
         user.adress = updateUserDto.adress;
         user.role = updateUserDto.role;
-        user.email = updateUserDto.email; 
+        user.email = updateUserDto.email;
+        user.code = updateUserDto.code;
         return this.userRepository.save(user);
     }
 

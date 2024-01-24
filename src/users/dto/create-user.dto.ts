@@ -23,8 +23,12 @@ export class CreateUserDto {
     @IsAlphanumeric(null, {
         message: 'Username does not allow other than alpha numeric chars.',
     })
-    adress: string;
- 
+    adress: string; 
+    
+    code: string;
+
+    activated: boolean;
+
     role: number = 2;
 
     @IsNotEmpty()

@@ -7,20 +7,11 @@ import { Contenu } from './entities/contenu.entity';
 
 @Injectable()
 export class ContenuService {
-    /**
-     * Here, we have used data mapper approch for this tutorial that is why we
-     * injecting repository here. Another approch can be Active records.
-     */
+
     constructor(
         @InjectRepository(Contenu) private readonly contenuRepository: Repository<Contenu>,
     ) { }
 
-    /**
-     * this is function is used to create Contenu in Contenu Entity.
-     * @param createContenuDto this will type of createContenuDto in which
-     * we have defined what are the keys we are expecting from body
-     * @returns promise of contenu
-     */
     createContenu(createContenuDto: CreateContenuDto): Promise<Contenu> {
         const contenu: Contenu = new Contenu();
         contenu.name = createContenuDto.name;
