@@ -20,7 +20,7 @@ export class User {
     @Column({ type: 'varchar', length: 40 })
     email: string;
 
-    @Column({ type: 'varchar', length: 6, nullable: true })
+    @Column({ type: 'varchar', length: 9, nullable: true })
     code: string;
 
     @Column({ type: 'boolean', default: false })

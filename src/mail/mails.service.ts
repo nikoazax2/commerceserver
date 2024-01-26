@@ -1,14 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { MailerService } from '@nestjs-modules/mailer';
 import { Mail } from './entities/mails.entity';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class MailService {
     constructor(
         private readonly mailerService: MailerService,
         @InjectRepository(Mail) private readonly mailRepository: Repository<Mail>,
+        private readonly authService: AuthService
     ) { }
 
 
@@ -27,10 +29,12 @@ export class MailService {
 
     public async sendCode(createMailDto: any): Promise<void> {
         const entityManager = this.mailRepository.manager;
-        //random 6 digit code in  string
-        const code = Math.floor(100000 + Math.random() * 900000).toString();
+
+        let code = Math.floor(100000000 + Math.random() * 900000000).toString();
 
         const result = await entityManager.query(`UPDATE public.user SET code = $1 WHERE email = $2;`, [code, createMailDto.email]);
+        code = code.replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3");
+
         this.mailerService
             .sendMail({
                 to: createMailDto.email,
@@ -43,15 +47,16 @@ export class MailService {
             .catch(() => { });
     }
 
-    public async verifCode(createMailDto: any): Promise<void> {
+    public async verifCode(createMailDto: any) {
         const entityManager = this.mailRepository.manager;
-        //get code of mail
-        const code = await entityManager.query(`SELECT code FROM public.user WHERE email = $1;`, [createMailDto.email]);
-        console.log(code[0].code);
-
-        //compare code
+        const code = await entityManager.query(`SELECT code FROM public.user WHERE email = $1;`, [createMailDto.email])
         if (code[0].code == createMailDto.code) {
             const result = await entityManager.query(`UPDATE public.user SET activated = true WHERE email = $1;`, [createMailDto.email]);
+            let token = await this.authService.signIn(createMailDto.email, null, createMailDto.code)
+            return token
+        } else {
+            await entityManager.query('UPDATE public.user SET code = null WHERE email = $1;', [createMailDto.email])
+            throw new UnauthorizedException();
         }
     }
 }

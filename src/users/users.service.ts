@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import { Logger } from '@nestjs/common';
 
 @Injectable()
 export class UsersService {
@@ -21,6 +22,13 @@ export class UsersService {
         return this.userRepository.findOne({ where: { email: email } });
     }
 
+    async updateMDP(user: any, password: string) {
+        const entityManager = this.userRepository.manager;
+        const result = await entityManager.query(`UPDATE public.user SET password = $1 WHERE email = $2;`, [password, user.email]);
+        return result;
+    }
+
+
     async findOneUUID(uuid: string): Promise<User | undefined> {
         return this.userRepository.findOne({ where: { uuid: uuid } });
     }
@@ -31,7 +39,9 @@ export class UsersService {
      * we have defined what are the keys we are expecting from body
      * @returns promise of user
      */
-    createUser(createUserDto: CreateUserDto): Promise<User> {
+    async createUser(createUserDto: CreateUserDto): Promise<User> {
+        const entityManager = this.userRepository.manager;
+        const exist = await entityManager.query(`SELECT * FROM public.user WHERE email = $1;`, [createUserDto.email]);
         const user: User = new User();
         user.username = createUserDto.username;
         user.adress = createUserDto.adress;
@@ -39,7 +49,9 @@ export class UsersService {
         user.email = createUserDto.email;
         user.password = createUserDto.password;
         user.code = createUserDto.code;
-        return this.userRepository.save(user);
+        if (exist.length == 0) {
+            return this.userRepository.save(user);
+        }
     }
 
     /**
@@ -55,7 +67,7 @@ export class UsersService {
      * @param id is type of number, which represent the id of user.
      * @returns promise of user
      */
-    viewUser(uuid: string): Promise<User> {
+    viewUser(uuid: any): Promise<User> {
         return this.userRepository.findOneBy({ uuid });
     }
 
@@ -68,7 +80,7 @@ export class UsersService {
      * @returns promise of udpate user
      */
     updateUser(uuid: string, updateUserDto: UpdateUserDto): Promise<User> {
-        const user: User = new User(); 
+        const user: User = new User();
         user.uuid = uuid;
         user.username = updateUserDto.username;
         user.adress = updateUserDto.adress;
