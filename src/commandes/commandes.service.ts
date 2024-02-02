@@ -4,19 +4,63 @@ import { Repository } from 'typeorm';
 import { CreateCommandeDto } from './dto/create-commande.dto';
 import { UpdateCommandeDto } from './dto/update-commande.dto';
 import { Commande } from './entities/commandes.entity';
+import Stripe from 'stripe';
 
 @Injectable()
 export class CommandeService {
-    handlePaymentSuccess(paymentIntent: any) {
-        throw new Error('Method not implemented.');
-    }
-    /**
-     * Here, we have used data mapper approch for this tutorial that is why we
-     * injecting repository here. Another approch can be Active records.
-     */
+
+    private stripe: Stripe;
     constructor(
-        @InjectRepository(Commande) private readonly commandeRepository: Repository<Commande>,
-    ) { }
+        @InjectRepository(Commande)
+        private commandeRepository: Repository<Commande>,
+    ) {
+        this.stripe = new Stripe('sk_test_51NboKUBTmmLQabfnkwiJPwHERe8S1ThthDlWT6iWewGN4BBqPfcGIQmlv8Q81jEC9SGtd44dpaE7JLBfK4axZpqP00LYPHYiP5', {
+            apiVersion: '2022-11-15',
+        });
+    }
+
+    getCommandes(user: any) {
+        if (user.role === 1) {
+            return this.commandeRepository.find()
+        } else {
+            return this.commandeRepository.find({ where: { useruuid: user.uuid } });
+        }
+    }
+
+
+    /**
+     * Vérifie que le paiement a bien été effectué avec stripe
+     * si oui, crée la commande
+     */
+    async confirmationPaiement(body: any, user: any) {
+        const session = await this.stripe.checkout.sessions.retrieve(body.CHECKOUT_SESSION_ID);
+        if (typeof session.payment_intent === 'string') {
+            const paymentIntent = await this.stripe.paymentIntents.retrieve(session.payment_intent);
+
+            //test if stripeid does not exist in database
+            const commande = await this.commandeRepository.findOne({ where: { stripeid: paymentIntent.id } });
+            if (commande) {
+                return 'ERROR';
+            }
+
+            if (paymentIntent.status === 'succeeded') {
+                const commande: Commande = new Commande();
+                commande.date = new Date();
+                commande.stripeid = paymentIntent.id;
+                commande.useruuid = user.uuid;
+                commande.products = body.products;
+                commande.shippingAddress = paymentIntent.shipping as JSON;
+                commande.etat = 1; // 1 payé
+                this.commandeRepository.save(commande);
+                return 'OK'
+            }
+        } else {
+            console.error('PaymentIntent ID is not a string');
+        }
+        return 'ERROR';
+
+
+    }
 
 
     async findOneUUID(uuid: string): Promise<Commande | undefined> {
@@ -33,6 +77,7 @@ export class CommandeService {
         const commande: Commande = new Commande();
         commande.date = createCommandeDto.date;
         commande.useruuid = createCommandeDto.useruuid;
+        commande.stripeid = createCommandeDto.stripeid;
         commande.products = createCommandeDto.products;
         commande.etat = createCommandeDto.etat;
         return this.commandeRepository.save(commande);
@@ -59,6 +104,7 @@ export class CommandeService {
         commande.uuid = uuid;
         commande.date = updateCommandeDto.date;
         commande.useruuid = updateCommandeDto.useruuid;
+        commande.stripeid = updateCommandeDto.stripeid;
         commande.products = updateCommandeDto.products;
         commande.etat = updateCommandeDto.etat;
         return this.commandeRepository.save(commande);

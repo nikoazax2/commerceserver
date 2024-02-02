@@ -43,7 +43,13 @@ export class UserController {
      * GET http://localhost:3000/user
      */
     @Get()
-    findAll() {
+    findAll(@Headers('Authorization') token: string) {
+        let user = this.jwtService.decode(token.replace('Bearer ', ''))
+        if (user['role'] === 1) {
+            return this.UsersService.findAllUser();
+        } else {
+            return this.UsersService.viewUser(user['uuid']);
+        }
         //return this.UsersService.findAllUser();
     }
 

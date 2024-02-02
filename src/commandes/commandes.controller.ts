@@ -9,7 +9,9 @@ import {
 } from '@nestjs/common';
 import { CommandeService } from './commandes.service';
 import { CreateCommandeDto } from './dto/create-commande.dto';
-import { UpdateCommandeDto } from './dto/update-commande.dto'; 
+import { UpdateCommandeDto } from './dto/update-commande.dto';
+import { JwtService } from '@nestjs/jwt';
+import { Headers } from '@nestjs/common';
 
 /**
  * whatever the string pass in controller decorator it will be appended to
@@ -19,10 +21,14 @@ import { UpdateCommandeDto } from './dto/update-commande.dto';
  */
 @Controller('Commande')
 export class CommandeController {
-    constructor(private readonly CommandeService: CommandeService ) { }
+    constructor(private readonly CommandeService: CommandeService, private jwtService: JwtService) { }
 
-    
 
+    @Post('confirmation')
+    async confirmationPaiement(@Body() body, @Headers('Authorization') token: string) {
+        let user = this.jwtService.decode(token.replace('Bearer ', ''))
+        return this.CommandeService.confirmationPaiement(body,user);
+    }
 
 
     /**
@@ -52,6 +58,12 @@ export class CommandeController {
     @Get(':uuid')
     findOne(@Param('uuid') uuid: string) {
         return this.CommandeService.viewCommande(uuid);
+    }
+
+    @Get()
+    findAll( @Headers('Authorization') token: string) {
+        let user = this.jwtService.decode(token.replace('Bearer ', ''))
+        return this.CommandeService.getCommandes(user);
     }
 
     /**

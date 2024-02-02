@@ -59,7 +59,11 @@ export class UsersService {
      * @returns promise of array of users
      */
     findAllUser(): Promise<User[]> {
-        return this.userRepository.find();
+        //get all but not the password
+        const entityManager = this.userRepository.manager;
+        return entityManager.query(`SELECT uuid, username, adress, role, email, code FROM public.user;`);
+
+
     }
 
     /**

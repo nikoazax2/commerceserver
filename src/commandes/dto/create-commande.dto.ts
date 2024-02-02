@@ -18,11 +18,16 @@ export class CreateCommandeDto {
     @MinLength(4)
     readonly useruuid: string;
 
+    @IsNotEmpty()
+    @IsString()
+    @MinLength(4)
+    readonly stripeid: string;
+
     @IsOptional()
     @IsString({ each: true })
     readonly products: string[];
 
     @IsOptional()
     @IsString()
-    readonly etat: string;
+    readonly etat: number;
 }
