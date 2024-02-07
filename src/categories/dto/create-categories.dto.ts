@@ -12,5 +12,8 @@ export class CreateCategorieDto {
     @IsNotEmpty()
     name: string;
 
+    @IsString() 
+    image: string;
+
 
 }

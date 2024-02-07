@@ -24,6 +24,7 @@ export class CategorieService {
     createCategorie(createCategorieDto: CreateCategorieDto): Promise<Categorie> {
         const categorie: Categorie = new Categorie();
         categorie.name = createCategorieDto.name; 
+        categorie.image = createCategorieDto.image;
         return this.categorieRepository.save(categorie);
     }
 
@@ -55,6 +56,7 @@ export class CategorieService {
         const categorie: Categorie = new Categorie();
         categorie.uuid = uuid;
         categorie.name = updateCategorieDto.name; 
+        categorie.image = updateCategorieDto.image;
         return this.categorieRepository.save(categorie);
     }
 

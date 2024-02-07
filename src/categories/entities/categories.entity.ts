@@ -11,4 +11,7 @@ export class Categorie {
     @Column({ type: 'varchar', length: 30 })
     name: string;
 
+    @Column({ type: 'text',nullable: true})
+    image: string;
+
 } 
