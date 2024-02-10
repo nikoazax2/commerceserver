@@ -29,7 +29,7 @@ export class Cartervice {
     async createCart(createCartDto: CreateCartDto): Promise<Cart> {
         const cart: Cart = new Cart();
         cart.user = createCartDto.user;
-        cart.product = createCartDto.product;
+        cart.product = createCartDto.product as unknown as JSON;
         cart.quantity = createCartDto.quantity;
         cart.details = createCartDto.details;
         return this.cartRepository.save(cart);
@@ -64,7 +64,7 @@ export class Cartervice {
         const cart: Cart = new Cart();
         cart.uuid = uuid;
         cart.quantity = updateCartDto.quantity;
-        cart.product = updateCartDto.product;
+        cart.product = updateCartDto.product as unknown as JSON;
         cart.user = updateCartDto.user;
         cart.details = updateCartDto.details;
         return this.cartRepository.save(cart);

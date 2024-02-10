@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { CreateCommandeDto } from './dto/create-commande.dto';
 import { UpdateCommandeDto } from './dto/update-commande.dto';
 import { Commande } from './entities/commandes.entity';
+import { Cart } from '../cart/entities/cart.entity';
 import Stripe from 'stripe';
 
 @Injectable()
@@ -13,6 +14,7 @@ export class CommandeService {
     constructor(
         @InjectRepository(Commande)
         private commandeRepository: Repository<Commande>,
+        @InjectRepository(Cart) private cartRepository: Repository<Cart>
     ) {
         this.stripe = new Stripe('sk_test_51NboKUBTmmLQabfnkwiJPwHERe8S1ThthDlWT6iWewGN4BBqPfcGIQmlv8Q81jEC9SGtd44dpaE7JLBfK4axZpqP00LYPHYiP5', {
             apiVersion: '2022-11-15',
@@ -34,24 +36,32 @@ export class CommandeService {
      */
     async confirmationPaiement(body: any, user: any) {
         const session = await this.stripe.checkout.sessions.retrieve(body.CHECKOUT_SESSION_ID);
+        const line_items = await this.stripe.checkout.sessions.listLineItems(body.CHECKOUT_SESSION_ID);
         if (typeof session.payment_intent === 'string') {
             const paymentIntent = await this.stripe.paymentIntents.retrieve(session.payment_intent);
 
-            //test if stripeid does not exist in database
             const commande = await this.commandeRepository.findOne({ where: { stripeid: paymentIntent.id } });
             if (commande) {
                 return 'ERROR';
             }
 
-            if (paymentIntent.status === 'succeeded') {
+            if (paymentIntent.status === 'succeeded') { 
                 const commande: Commande = new Commande();
                 commande.date = new Date();
                 commande.stripeid = paymentIntent.id;
                 commande.useruuid = user.uuid;
-                commande.products = body.products;
+                let products = line_items.data.map((item: any) => {
+                    return {
+                        productuuid: item.price.product as string,
+                        quantity: item.quantity,
+                        prix: item.amount_total / 100
+                    }
+                });
+                commande.products = products as unknown as JSON; 
                 commande.shippingAddress = paymentIntent.shipping as JSON;
-                commande.etat = 1; // 1 payé
+                commande.etat = 1; // 1 payé 
                 this.commandeRepository.save(commande);
+           
                 return 'OK'
             }
         } else {
@@ -77,8 +87,7 @@ export class CommandeService {
         const commande: Commande = new Commande();
         commande.date = createCommandeDto.date;
         commande.useruuid = createCommandeDto.useruuid;
-        commande.stripeid = createCommandeDto.stripeid;
-        commande.products = createCommandeDto.products;
+        commande.stripeid = createCommandeDto.stripeid; 
         commande.etat = createCommandeDto.etat;
         return this.commandeRepository.save(commande);
     }
@@ -104,8 +113,7 @@ export class CommandeService {
         commande.uuid = uuid;
         commande.date = updateCommandeDto.date;
         commande.useruuid = updateCommandeDto.useruuid;
-        commande.stripeid = updateCommandeDto.stripeid;
-        commande.products = updateCommandeDto.products;
+        commande.stripeid = updateCommandeDto.stripeid; 
         commande.etat = updateCommandeDto.etat;
         return this.commandeRepository.save(commande);
     }

@@ -10,8 +10,12 @@ export class Commande {
     @Column({ type: 'varchar' })
     stripeid: string;
 
-    @Column({ type: 'json' }) 
+    @Column({ type: 'json' })
     shippingAddress: JSON;
+
+
+    @Column({ type: 'json', nullable: true})
+    products: JSON;
 
     @Column({ type: 'date' })
     date: Date;
@@ -19,16 +23,12 @@ export class Commande {
     @Column({ type: 'varchar' })
     useruuid: string;
 
+
     @Column({ type: 'int', nullable: false })
     @IsOptional()
-    etat: number;
+    etat: number; 
 
-    @Column({
-        type: 'text', array: true, nullable: true, default: []
-    })
-    @IsOptional()
-    products: string[];
-    commande: import("stripe").Stripe.PaymentIntent.Shipping;
+
 }
 
 export { Product };

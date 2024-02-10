@@ -6,12 +6,14 @@ import {
     Patch,
     Param,
     Delete,
+    UseGuards,
 } from '@nestjs/common';
 import { CommandeService } from './commandes.service';
 import { CreateCommandeDto } from './dto/create-commande.dto';
 import { UpdateCommandeDto } from './dto/update-commande.dto';
 import { JwtService } from '@nestjs/jwt';
 import { Headers } from '@nestjs/common';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 /**
  * whatever the string pass in controller decorator it will be appended to
@@ -27,7 +29,7 @@ export class CommandeController {
     @Post('confirmation')
     async confirmationPaiement(@Body() body, @Headers('Authorization') token: string) {
         let user = this.jwtService.decode(token.replace('Bearer ', ''))
-        return this.CommandeService.confirmationPaiement(body,user);
+        return this.CommandeService.confirmationPaiement(body, user);
     }
 
 
@@ -61,7 +63,7 @@ export class CommandeController {
     }
 
     @Get()
-    findAll( @Headers('Authorization') token: string) {
+    findAll(@Headers('Authorization') token: string) {
         let user = this.jwtService.decode(token.replace('Bearer ', ''))
         return this.CommandeService.getCommandes(user);
     }
@@ -71,7 +73,9 @@ export class CommandeController {
      * so the API URL will be
      * PATCH http://localhost:3000/Commande/:id
      */
+
     @Patch(':uuid')
+    @UseGuards(AuthGuard)
     update(@Param('uuid') uuid: string, @Body() updateCommandeDto: UpdateCommandeDto) {
         return this.CommandeService.updateCommande(uuid, updateCommandeDto);
     }

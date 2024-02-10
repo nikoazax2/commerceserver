@@ -8,8 +8,6 @@ import { Product } from './products/entities/products.entity';
 import { ProductModule } from './products/products.module';
 import { Categorie } from './categories/entities/categories.entity';
 import { CategorieModule } from './categories/categories.module';
-import { Cart } from './cart/entities/cart.entity';
-import { CartModule } from './cart/cart.module';
 import { UsersService } from './users/users.service';
 import { AuthModule } from './auth/auth.module';
 import { Variation } from './variation/entities/variations.entity';
@@ -37,14 +35,13 @@ dotenv.config();
             username: process.env.DB_USERNAME,
             password: process.env.DB_PASSWORD,
             database: process.env.DB_NAME,
-            entities: [User, Product, Categorie, Cart, Variation, Contenu, Commande, Bloc],
+            entities: [User, Product, Categorie , Variation, Contenu, Commande, Bloc],
             synchronize: true,
             logging: true,
         }),
         UsersModule,
         ProductModule,
-        VariationModule,
-        CartModule,
+        VariationModule, 
         CategorieModule,
         AuthModule,
         ContenuModule,
