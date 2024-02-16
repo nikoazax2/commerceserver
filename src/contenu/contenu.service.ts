@@ -16,7 +16,7 @@ export class ContenuService {
         const contenu: Contenu = new Contenu();
         contenu.name = createContenuDto.name;
         contenu.description = createContenuDto.description;
-        contenu.contenu = createContenuDto.contenu;
+        contenu.contenu = createContenuDto.contenu as unknown as JSON;
         contenu.page = createContenuDto.page;
         contenu.order = createContenuDto.order;
         contenu.valeur = createContenuDto.valeur;
@@ -57,7 +57,7 @@ export class ContenuService {
         contenu.uuid = uuid;
         contenu.name = updateContenuDto.name;
         contenu.description = updateContenuDto.description;
-        contenu.contenu = updateContenuDto.contenu;
+        contenu.contenu = updateContenuDto.contenu as unknown as JSON;
         contenu.page = updateContenuDto.page;
         contenu.order = updateContenuDto.order;
         contenu.valeur = updateContenuDto.valeur;
