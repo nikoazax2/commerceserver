@@ -24,6 +24,7 @@ export class ContenuService {
         contenu.image = createContenuDto.image;
         contenu.type = createContenuDto.type;
         contenu.removable = createContenuDto.removable;
+        contenu.espacement = createContenuDto.espacement as unknown as JSON;
         return this.contenuRepository.save(contenu);
     }
 
@@ -65,6 +66,7 @@ export class ContenuService {
         contenu.image = updateContenuDto.image;
         contenu.type = updateContenuDto.type;
         contenu.removable = updateContenuDto.removable;
+        contenu.espacement = updateContenuDto.espacement as unknown as JSON;
         return this.contenuRepository.save(contenu);
     }
 

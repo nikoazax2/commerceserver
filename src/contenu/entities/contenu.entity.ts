@@ -21,6 +21,9 @@ export class Contenu {
     @Column({ type: 'json', nullable: true })
     contenu: JSON;
 
+    @Column({ type: 'json', nullable: true })
+    espacement: JSON;
+
     @Column({ type: 'varchar', length: 30, nullable: true })
     page: string;
 

@@ -30,7 +30,12 @@ export class CreateContenuDto {
 
     @IsString()
     @MinLength(2, { message: 'Name must have atleast 2 characters.' })
-    contenu: string;
+    contenu: JSON;
+
+    
+    @IsString()
+    @MinLength(2, { message: 'Name must have atleast 2 characters.' })
+    espacement: JSON;
 
     @IsString()
     @MinLength(2, { message: 'Name must have atleast 2 characters.' })
