@@ -32,7 +32,6 @@ export class CreateContenuDto {
     @MinLength(2, { message: 'Name must have atleast 2 characters.' })
     contenu: JSON;
 
-    
     @IsString()
     @MinLength(2, { message: 'Name must have atleast 2 characters.' })
     espacement: JSON;
@@ -47,19 +46,11 @@ export class CreateContenuDto {
     @Optional()
     order: number;
 
-    @IsString()
-    @MinLength(2, { message: 'Name must have atleast 2 characters.' })
+    @IsNumber()
+    @IsInt()
     @Optional()
-    photo: boolean;
+    orderHorizontal: number;
 
     @IsNotEmpty()
     removable: boolean;
-
-    @IsString()
-    @MinLength(2, { message: 'Name must have atleast 2 characters.' })
-    @Optional()
-    image: string[];
-
-
-
 }

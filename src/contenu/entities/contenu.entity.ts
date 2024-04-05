@@ -30,15 +30,9 @@ export class Contenu {
     @Column({ type: 'int', nullable: true })
     order: number;
 
-    @Column({ type: 'boolean', nullable: true })
-    photo: boolean;
+    @Column({ type: 'int', nullable: true })
+    orderHorizontal: number;
 
     @Column({ type: 'boolean', nullable: true })
     removable: boolean;
-
-    @Column({
-        type: 'text', array: true, nullable: true, default: []
-    })
-    @IsOptional()
-    image: string[];
 }

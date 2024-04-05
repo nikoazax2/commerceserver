@@ -19,9 +19,8 @@ export class ContenuService {
         contenu.contenu = createContenuDto.contenu as unknown as JSON;
         contenu.page = createContenuDto.page;
         contenu.order = createContenuDto.order;
-        contenu.valeur = createContenuDto.valeur;
-        contenu.photo = createContenuDto.photo;
-        contenu.image = createContenuDto.image;
+        contenu.orderHorizontal = createContenuDto.orderHorizontal;
+        contenu.valeur = createContenuDto.valeur; 
         contenu.type = createContenuDto.type;
         contenu.removable = createContenuDto.removable;
         contenu.espacement = createContenuDto.espacement as unknown as JSON;
@@ -61,9 +60,8 @@ export class ContenuService {
         contenu.contenu = updateContenuDto.contenu as unknown as JSON;
         contenu.page = updateContenuDto.page;
         contenu.order = updateContenuDto.order;
-        contenu.valeur = updateContenuDto.valeur;
-        contenu.photo = updateContenuDto.photo;
-        contenu.image = updateContenuDto.image;
+        contenu.orderHorizontal = updateContenuDto.orderHorizontal;
+        contenu.valeur = updateContenuDto.valeur; 
         contenu.type = updateContenuDto.type;
         contenu.removable = updateContenuDto.removable;
         contenu.espacement = updateContenuDto.espacement as unknown as JSON;
