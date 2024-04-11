@@ -20,10 +20,9 @@ export class ContenuService {
         contenu.page = createContenuDto.page;
         contenu.order = createContenuDto.order;
         contenu.orderHorizontal = createContenuDto.orderHorizontal;
-        contenu.valeur = createContenuDto.valeur; 
+        contenu.valeur = createContenuDto.valeur;
         contenu.type = createContenuDto.type;
         contenu.removable = createContenuDto.removable;
-        contenu.espacement = createContenuDto.espacement as unknown as JSON;
         return this.contenuRepository.save(contenu);
     }
 
@@ -61,10 +60,9 @@ export class ContenuService {
         contenu.page = updateContenuDto.page;
         contenu.order = updateContenuDto.order;
         contenu.orderHorizontal = updateContenuDto.orderHorizontal;
-        contenu.valeur = updateContenuDto.valeur; 
+        contenu.valeur = updateContenuDto.valeur;
         contenu.type = updateContenuDto.type;
-        contenu.removable = updateContenuDto.removable;
-        contenu.espacement = updateContenuDto.espacement as unknown as JSON;
+        contenu.removable = updateContenuDto.removable; 
         return this.contenuRepository.save(contenu);
     }
 
