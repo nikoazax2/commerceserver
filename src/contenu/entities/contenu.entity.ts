@@ -30,6 +30,12 @@ export class Contenu {
     @Column({ type: 'int', nullable: true })
     orderHorizontal: number;
 
+    @Column({ type: 'boolean',default: true })
+    phone: boolean;
+
+    @Column({ type: 'boolean',default: true })
+    pc: boolean;
+    
     @Column({ type: 'boolean', nullable: true })
     removable: boolean;
 }

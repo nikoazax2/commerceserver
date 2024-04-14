@@ -31,7 +31,7 @@ export class CreateContenuDto {
     @IsString()
     @MinLength(2, { message: 'Name must have atleast 2 characters.' })
     contenu: JSON;
- 
+
     @IsString()
     @MinLength(2, { message: 'Name must have atleast 2 characters.' })
     @Optional()
@@ -49,4 +49,8 @@ export class CreateContenuDto {
 
     @IsNotEmpty()
     removable: boolean;
+
+    phone: boolean;
+
+    pc: boolean;
 }

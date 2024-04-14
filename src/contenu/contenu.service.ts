@@ -23,6 +23,8 @@ export class ContenuService {
         contenu.valeur = createContenuDto.valeur;
         contenu.type = createContenuDto.type;
         contenu.removable = createContenuDto.removable;
+        contenu.phone = createContenuDto.phone;
+        contenu.pc = createContenuDto.pc;
         return this.contenuRepository.save(contenu);
     }
 
@@ -63,6 +65,8 @@ export class ContenuService {
         contenu.valeur = updateContenuDto.valeur;
         contenu.type = updateContenuDto.type;
         contenu.removable = updateContenuDto.removable; 
+        contenu.phone = updateContenuDto.phone;
+        contenu.pc = updateContenuDto.pc;
         return this.contenuRepository.save(contenu);
     }
 
